@@ -7,14 +7,15 @@ RUN apt-get update && apt-get upgrade -y && \
 
 WORKDIR /opt/goose
 
-ARG GOOSE_VERSION=v3.7.0
+ARG GOOSE_VERSION=v3.9.0
 RUN ARCH=$(uname -m) && \
     echo "ARCH=$ARCH" && \
-    if test "$ARCH" == "aarch64" || test "$ARCH" == "arm64"; then \
+    if test "$ARCH" = "aarch64" || test "$ARCH" = "arm64"; then \
         GOOSE_TARBALL=goose_linux_arm64 ;\
     else \
         GOOSE_TARBALL=goose_linux_x86_64 ;\
     fi && \
+    echo "GOOSE_TARBALL=$GOOSE_TARBALL" && \
     wget -q --no-check-certificate https://github.com/pressly/goose/releases/download/${GOOSE_VERSION}/${GOOSE_TARBALL} && \
     mv "${GOOSE_TARBALL}" goose && \
     chmod +x goose && \

@@ -10,7 +10,7 @@ WORKDIR /opt/goose
 ARG GOOSE_VERSION=v3.7.0
 RUN ARCH=$(uname -m) && \
     echo "ARCH=$ARCH" && \
-    if test "$ARCH" == "aarch64" || test "$ARCH" == "arm64"; then \
+    if test "$ARCH" = "aarch64" || test "$ARCH" = "arm64"; then \
         GOOSE_TARBALL=goose_linux_arm64 ;\
     else \
         GOOSE_TARBALL=goose_linux_x86_64 ;\

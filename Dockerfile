@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade -y && \
 
 WORKDIR /opt/goose
 
-ARG GOOSE_VERSION=v3.7.0
+ARG GOOSE_VERSION=v3.9.0
 RUN ARCH=$(uname -m) && \
     echo "ARCH=$ARCH" && \
     if test "$ARCH" = "aarch64" || test "$ARCH" = "arm64"; then \

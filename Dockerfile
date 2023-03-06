@@ -15,6 +15,7 @@ RUN ARCH=$(uname -m) && \
     else \
         GOOSE_TARBALL=goose_linux_x86_64 ;\
     fi && \
+    echo "GOOSE_TARBALL=$GOOSE_TARBALL" && \
     wget -q --no-check-certificate https://github.com/pressly/goose/releases/download/${GOOSE_VERSION}/${GOOSE_TARBALL} && \
     mv "${GOOSE_TARBALL}" goose && \
     chmod +x goose && \

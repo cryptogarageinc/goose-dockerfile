@@ -1,23 +1,9 @@
-FROM --platform=$TARGETPLATFORM debian:bullseye-slim
+FROM --platform=$TARGETPLATFORM golang:1.20.3-alpine3.17 as builder
 
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends wget make && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN GOOSE_VERSION=v3.11.0 && \
+    go install github.com/pressly/goose/v3/cmd/goose@${GOOSE_VERSION}
 
-WORKDIR /opt/goose
-
-ARG GOOSE_VERSION=v3.9.0
-RUN ARCH=$(uname -m) && \
-    echo "ARCH=$ARCH" && \
-    if test "$ARCH" = "aarch64" || test "$ARCH" = "arm64"; then \
-        GOOSE_TARBALL=goose_linux_arm64 ;\
-    else \
-        GOOSE_TARBALL=goose_linux_x86_64 ;\
-    fi && \
-    echo "GOOSE_TARBALL=$GOOSE_TARBALL" && \
-    wget -q --no-check-certificate https://github.com/pressly/goose/releases/download/${GOOSE_VERSION}/${GOOSE_TARBALL} && \
-    mv "${GOOSE_TARBALL}" goose && \
-    chmod +x goose && \
-    ln -s /opt/goose/goose /usr/local/bin/goose && \
-    goose --version
+FROM --platform=$TARGETPLATFORM alpine:3.17 as runner
+RUN apk add --update --no-cache ca-certificates libstdc++ make bash
+COPY --from=builder /go/bin/goose /usr/bin/goose
+CMD ["/usr/bin/goose"]

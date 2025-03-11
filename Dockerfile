@@ -1,4 +1,4 @@
-FROM --platform=$TARGETPLATFORM golang:1.23.4-alpine3.20 as builder
+FROM --platform=$TARGETPLATFORM golang:1.23.7-alpine3.20 as builder
 
 RUN GOOSE_VERSION=v3.24.1 && \
     go install github.com/pressly/goose/v3/cmd/goose@${GOOSE_VERSION}

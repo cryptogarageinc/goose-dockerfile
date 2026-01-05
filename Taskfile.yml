@@ -2,8 +2,8 @@ version: "3"
 tasks:
   lint:
     deps:
-      - task: :gha-lint
-      - task: :hadolint
+      - task: gha-lint
+      - task: hadolint
   gha-lint:
     vars:
       PINACT_VERSION: v3.4.2

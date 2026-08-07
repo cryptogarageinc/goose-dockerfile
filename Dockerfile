@@ -1,6 +1,6 @@
-FROM golang:1.25.11-alpine3.23 AS builder
+FROM golang:1.25.12-alpine3.23 AS builder
 
-RUN GOOSE_VERSION=v3.27.2 && \
+RUN GOOSE_VERSION=v3.27.3 && \
     go install github.com/cryptogarageinc/goose-wrapper/v3/cmd/goose@${GOOSE_VERSION}
 
 FROM alpine:3.23 AS runner

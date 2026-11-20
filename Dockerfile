@@ -1,7 +1,7 @@
-FROM golang:1.26.8-alpine3.24 AS builder
+FROM golang:1.26.11-alpine3.24 AS builder
 
 RUN apk update && apk upgrade --no-cache
-RUN GOOSE_VERSION=v3.28.0 && \
+RUN GOOSE_VERSION=v3.30.1 && \
     go install github.com/cryptogarageinc/goose-wrapper/v3/cmd/goose@${GOOSE_VERSION}
 
 FROM alpine:3.24 AS runner
